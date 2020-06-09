@@ -400,6 +400,12 @@
     <ctl name="EAR PA Gain" value="G_6_DB" />
     <ctl name="EAR SPKR PA Gain" value="G_DEFAULT" />
 
+    <!-- #ifdef VENDOR_EDIT liuhaituo@MM.Audio 2019/2/12 add for headset
+    impedance detect-->
+    <ctl name="headset_imp_feature" value="1" />
+    <ctl name="RX1 Mix Digital Volume" value="80" />
+    <ctl name="RX2 Mix Digital Volume" value="80" />
+    <!-- #endif -->
     <ctl name="RX0 Digital Volume" value="84" />
     <ctl name="RX1 Digital Volume" value="84" />
     <ctl name="RX2 Digital Volume" value="84" />
@@ -830,6 +836,13 @@
     <path name="low-latency-playback">
         <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia5" value="1" />
     </path>
+
+<!-- #ifdef VENDOR_EDIT -->
+<!-- chenshuyun@MM.Audio,2019/08/03, modify TTY HCO and VCO backend to fix no sound issue-->
+    <path name="low-latency-playback voice-tty-hco-handset">
+        <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia5" value="1" />
+    </path>
+<!--#endif-->
 
 <!-- #ifdef VENDOR_EDIT -->
 <!-- wangdongdong@MultiMediaService,2016/10/01,add i2s path-->
@@ -2172,6 +2185,24 @@
     </path>
 
 <!-- #ifdef VENDOR_EDIT -->
+<!-- chenshuyun@MM.Audio,2019/08/03, modify TTY HCO and VCO backend to fix no sound issue-->
+    <path name="voicemmode1-call voice-tty-hco-handset">
+        <ctl name="VOC_EXT_EC MUX" value="QUAT_MI2S_RX" />
+        <ctl name="QUAT_MI2S_RX_Voice Mixer VoiceMMode1" value="1" />
+        <ctl name="VoiceMMode1_Tx Mixer SLIM_1_TX_MMode1" value="1" />
+    </path>
+<!--#endif-->
+
+<!-- #ifdef VENDOR_EDIT -->
+<!-- chenshuyun@MM.Audio,2019/08/06, add HCO usb-headset-mic path to compatible with usb digital adapter to TTY-->
+    <path name="voicemmode1-call voice-tty-hco-handset-and-usb-headset-mic">
+        <ctl name="VOC_EXT_EC MUX" value="QUAT_MI2S_RX" />
+        <ctl name="QUAT_MI2S_RX_Voice Mixer VoiceMMode1" value="1" />
+        <ctl name="VoiceMMode1_Tx Mixer USB_AUDIO_TX_MMode1" value="1" />
+    </path>
+<!--#endif-->
+
+<!-- #ifdef VENDOR_EDIT -->
 <!-- wangdongdong@MultiMediaService,2016/10/01,add i2s path-->
     <path name="voicemmode1-call quat_i2s">
         <ctl name="VOC_EXT_EC MUX" value="QUAT_MI2S_RX" />
@@ -2594,12 +2625,12 @@
 <!--#ifdef VENDOR_EDIT
 //dujie@MM.Audio, 2019/05/21, add receiver-mmi mixer path -->
   <path name="receiver-mmi">
-     <ctl name="SLIM RX0 MUX" value="AIF1_PB" />
+     <!--ctl name="SLIM RX0 MUX" value="AIF1_PB" />
      <ctl name="CDC_IF RX0 MUX" value="SLIM RX0" />
      <ctl name="SLIM_0_RX Channels" value="One" />
      <ctl name="RX INT0_1 MIX1 INP0" value="RX0" />
      <ctl name="RX INT0 DEM MUX" value="CLSH_DSM_OUT" />
-     <ctl name="EAR SPKR PA Gain" value="G_6_DB" />
+     <ctl name="EAR SPKR PA Gain" value="G_6_DB" /-->
   </path>
 
   <path name="handset-mmi">
@@ -2698,7 +2729,7 @@
     </path>
 
     <path name="speaker-mic-liquid">
-        <path name="dmic3" />
+        <path name="dmic2" />
     </path>
 
     <path name="speaker-mic-sbc">
@@ -2760,13 +2791,11 @@
     <path name="vi-feedback-mono-2">
     </path>
 
-<!-- ifdef VENDOR_EDIT -->
+<!-- #ifdef VENDOR_EDIT-->
     <path name="handset">
         <ctl name="stereo Profile" value="receive" />
         <ctl name="TFA_CHIP_SELECTOR" value="3" />
         <ctl name="Ultrasound Mode" value="693" />
-        <!-- yewenliang@MM.Audio, 2019/07/23,add for set bob mode and voltage  -->
-        <ctl name="Bob Regulator" value="Enable" />
     </path>
 
     <path name="ultrasound-reveier-mode">
@@ -2774,7 +2803,7 @@
         <ctl name="TFA_CHIP_SELECTOR" value="3" />
         <ctl name="Ultrasound Mode" value="693" />
     </path>
-<!-- #endif VENDOR_EDIT-->
+ <!-- #endif VENDOR_EDIT-->
 
     <path name="handset-qrd">
         <ctl name="SLIM RX0 MUX" value="AIF1_PB" />
@@ -3301,6 +3330,7 @@
         <ctl name="ADC MUX8" value="AMIC" />
         <ctl name="AMIC MUX8" value="ADC3" />
     </path>
+
 <!-- add by lf for mixer_pather 20171216 -->
     <path name="handset-mic-re-sbc">
         <ctl name="AIF1_CAP Mixer SLIM TX5" value="1" />
@@ -3446,17 +3476,22 @@
 
     <path name="speaker-dmic-endfire">
 <!-- #ifdef VENDOR_EDIT-->
-        <ctl name="AIF1_CAP Mixer SLIM TX7" value="1" />
+<!-- #dujie@MM.Audio, 2019/08/14, Three-stage headphone mode takes three signals -->
+        <ctl name="AIF1_CAP Mixer SLIM TX6" value="1" />
+        <ctl name="AIF1_CAP Mixer SLIM TX5" value="1" />
         <ctl name="AIF1_CAP Mixer SLIM TX8" value="1" />
-        <ctl name="CDC_IF TX7 MUX" value="DEC7" />
-        <ctl name="ADC MUX7" value="AMIC" />
-        <ctl name="AMIC MUX7" value="ADC3" />
+        <ctl name="SLIM_0_TX Channels" value="Three" />
+        <ctl name="CDC_IF TX6 MUX" value="DEC6" />
+        <ctl name="ADC MUX6" value="AMIC" />
+        <ctl name="AMIC MUX6" value="ADC3" />
+        <ctl name="CDC_IF TX5 MUX" value="DEC5" />
+        <ctl name="ADC MUX5" value="AMIC" />
+        <ctl name="AMIC MUX5" value="ADC4" />
+        <ctl name="AMIC4_5 SEL" value="AMIC4" />
         <ctl name="CDC_IF TX8 MUX" value="DEC8" />
         <ctl name="ADC MUX8" value="AMIC" />
-        <ctl name="AMIC MUX8" value="ADC4" />
-        <ctl name="AMIC4_5 SEL" vlaue="AMIC4" />
-        <ctl name="SLIM_0_TX Channels" value="Two" />
-<!-- #endif VENDOR_EDIT-->
+        <ctl name="AMIC MUX8" value="ADC1" />
+       <!-- #endif VENDOR_EDIT-->
     </path>
 
     <path name="handset-dmic-endfire-qrd">
@@ -3561,7 +3596,7 @@
         <ctl name="CDC_IF TX8 MUX" value="DEC8" />
         <ctl name="ADC MUX8" value="AMIC" />
         <ctl name="AMIC MUX8" value="ADC1" />
-    <!-- #endif VENDOR_EDIT-->
+       <!-- #endif VENDOR_EDIT-->
     </path>
 
     <path name="voice-rec-dmic-ef">
@@ -3769,11 +3804,17 @@
 
     <!-- TTY devices -->
 
-    <path name="tty-headphones">
+<!-- #ifdef VENDOR_EDIT -->
+<!-- chenshuyun@MM.Audio,2019/08/03, modify TTY HCO and VCO backend to fix no sound issue-->
+    <!-- <path name="tty-headphones">
         <ctl name="SLIM RX2 MUX" value="AIF4_PB" />
         <ctl name="SLIM_6_RX Channels" value="One" />
         <ctl name="RX INT1_2 MUX" value="RX2" />
+    </path> -->
+    <path name="tty-headphones">
+        <path name="headphones" />
     </path>
+<!--#endif-->
 
     <path name="voice-tty-full-headphones">
         <ctl name="TTY Mode" value="FULL" />
