@@ -46,6 +46,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
 
+# Properties
+include $(LOCAL_PATH)/vendor_prop.mk
+
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.2-service.oneplus_msmnile
