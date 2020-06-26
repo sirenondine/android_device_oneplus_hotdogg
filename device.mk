@@ -2,6 +2,9 @@
 # Copyright (C) 2018-2019 The LineageOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
+
+$(call inherit-product, vendor/gapps/config.mk)
+
 #
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 $(call inherit-product, device/oneplus/sm8150-common/common.mk)
@@ -41,3 +44,5 @@ PRODUCT_PACKAGES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
+
+$(call inherit-product, vendor/gapps/config.mk)
