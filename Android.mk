@@ -66,5 +66,11 @@ $(RFS_MDM_TN_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /mnt/vendor/persist/rfs/shared $@/shared
 	$(hide) ln -sf /vendor/firmware_mnt $@/readonly/firmware
 
-ALL_DEFAULT_INSTALLED_MODULES += $(RFS_MDM_ADSP_SYMLINKS) $(RFS_MDM_CDSP_SYMLINKS) $(RFS_MDM_MPSS_SYMLINKS) $(RFS_MDM_SLPI_SYMLINKS) $(RFS_MDM_TN_SYMLINKS)
+PERSIST_SYMLINKS := /persist/
+$(PERSIST_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Creating persist symlinks: $@"
+	mkdir -p $@
+	$(hide) ln -sf /mnt/vendor/persist $@/persist
+
+ALL_DEFAULT_INSTALLED_MODULES += $(RFS_MDM_ADSP_SYMLINKS) $(RFS_MDM_CDSP_SYMLINKS) $(RFS_MDM_MPSS_SYMLINKS) $(RFS_MDM_SLPI_SYMLINKS) $(RFS_MDM_TN_SYMLINKS) $(PERSIST_SYMLINKS)
 endif
