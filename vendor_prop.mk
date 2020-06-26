@@ -9,6 +9,7 @@ PRODUCT_PROPERTY_OVERRIDES +=  \
     persist.rcs.otp_sms_port=0 \
     persist.rcs.supported=1 \
     ro.com.android.dataroaming=false \
+    ro.vendor.boot.project_name=19861 \
     persist.vendor.radio.data_con_rprt=1 \
     persist.vendor.radio.ignore_dom_time=10 \
     persist.vendor.radio.data_ltd_sys_ind=1 \
