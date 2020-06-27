@@ -1,0 +1,4 @@
+# Radio
+ro.telephony.default_network=32
+telephony.lteOnCdmaDevice=1
+
