@@ -5,4 +5,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/bliss_guacamole.mk
+    $(LOCAL_DIR)/bliss_hotdogg.mk
