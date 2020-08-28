@@ -12,10 +12,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/oneplus/hotdogg/device.mk)
 
 # Inherit some common Lineage stuff.
-$(call inherit-product, vendor/zenx/config/common_full_phone.mk)
+$(call inherit-product, vendor/rr/config/common_full_phone.mk)
 
 # Device identifier. This must come after all inclusions.
-PRODUCT_NAME := zenx_hotdogg
+PRODUCT_NAME := rr_hotdogg
 PRODUCT_DEVICE := hotdogg
 PRODUCT_BRAND := OnePlus
 PRODUCT_MODEL := HD1925
@@ -36,3 +36,8 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=OnePlus7TProNR \
     PRIVATE_BUILD_DESC="OnePlus7TProNR-user 10 QKQ1.190716.003 2006042037 release-keys"
 PRODUCT_GMS_CLIENTID_BASE := android-oneplus
+
+# Face Unlock Support
+TARGET_FACE_UNLOCK_SUPPORTED := true
+# FOD
+TARGET_USES_FOD_HACK := true

@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-$(call inherit-product, vendor/gapps/config.mk)
+#$(call inherit-product, vendor/gapps/config.mk)
 
 #
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
@@ -11,6 +11,15 @@ $(call inherit-product, device/oneplus/sm8150-common/common.mk)
 
 # Get non-open-source specific aspects
 $(call inherit-product, vendor/oneplus/hotdogg/hotdogg-vendor.mk)
+
+#lineageos4microg
+PRODUCT_PACKAGES +=\
+	FakeStore \
+	GmsCore \
+	GsfProxy \
+	MozillaNlpBackend \
+	NominatimNlpBackend \
+	com.google.android.maps
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -64,4 +73,4 @@ PRODUCT_BUILD_SUPER_PARTITION := false
 PRODUCT_SHIPPING_API_LEVEL := 29
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-$(call inherit-product, vendor/gapps/config.mk)
+#$(call inherit-product, vendor/gapps/config.mk)
